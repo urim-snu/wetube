@@ -112,3 +112,6 @@ dist
 .vscode-test
 
 package-lock.json
+
+uploads
+# 비디오를 github에 올릴 필요는 없지
