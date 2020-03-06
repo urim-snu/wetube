@@ -1,7 +1,9 @@
-import routes from "./routes";
 import multer from "multer";
+import routes from "./routes";
 
-const multerVideo = multer({dest: 'uploads/videos/'});
+const multerVideo = multer({
+    dest: 'uploads/videos/'
+});
 //서버의 폴더명
 // /uploads/videos/ 이런 식으로 쓰면 컴퓨터에 root에 디렉토리를 만들게 된다.
 

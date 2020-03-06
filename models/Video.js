@@ -21,7 +21,7 @@ const VideoSchema = new mongoose.Schema({
 
     comments: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref:"Comment" // 모델의 이름
+        ref: "Comment" // 모델의 이름
     }]
 });
 
