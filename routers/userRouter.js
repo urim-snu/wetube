@@ -6,6 +6,7 @@ import {
 
 const userRouter = express.Router();
 
+
 userRouter.get(routes.editProfile, (req, res) =>
   res.render("editProfile", {
     pageTitle: "Edit Profile"
