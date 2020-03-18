@@ -67,6 +67,13 @@ export const changePassword = (req, res) => {
     });
 };
 
+export const getMe = (req, res) => {
+    res.render("userDetail", {
+        pageTitle: "User Detail",
+        user: req.user
+    });
+}
+
 export const userDetail = (req, res) => {
     res.render("userDetail", {
         pageTitle: "User Detail"
@@ -79,7 +86,7 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
     const {
         _json: {
             id,
-            avatar_url,
+            avatar_url: avatarURL,
             name,
             email
         }

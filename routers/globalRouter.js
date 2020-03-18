@@ -11,7 +11,8 @@ import {
   postLogin,
   logout,
   githubLogin,
-  postGithubLogin
+  postGithubLogin,
+  getMe
 } from "../controller/usercontroller";
 import {
   onlyPublic,
@@ -29,6 +30,8 @@ globalRouter.post(routes.login, onlyPublic, postLogin);
 
 globalRouter.get(routes.home, home);
 globalRouter.get(routes.search, search);
+
+globalRouter.get(routes.me, getMe);
 
 globalRouter.get(routes.logout, onlyPrivate, logout);
 

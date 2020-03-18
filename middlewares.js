@@ -10,8 +10,8 @@ const multerVideo = multer({
 export const localsMiddleware = (req, res, next) => {
   res.locals.siteName = "Wetube";
   res.locals.routes = routes;
-  res.locals.user = req.user || null;
-  console.log(res.locals.user);
+  res.locals.loggedUser = req.user || null;
+  console.log(res.locals.loggedUser);
   next();
 };
 
