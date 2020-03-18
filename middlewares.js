@@ -12,8 +12,6 @@ export const localsMiddleware = (req, res, next) => {
   res.locals.routes = routes;
   res.locals.user = req.user || null;
   console.log(res.locals.user);
-  console.log(req.user);
-
   next();
 };
 
@@ -21,3 +19,19 @@ export const uploadVideo = multerVideo.single("videoFile");
 
 //single은 하나의 파일만 들어올 수 있다는 의미
 //인자는 들어올 file의 이름
+
+export const onlyPublic = (req, res, next) => {
+  if (req.user) {
+    res.redirect(routes.home);
+  } else {
+    next();
+  }
+}
+
+export const onlyPrivate = (req, res, next) => {
+  if (req.user) {
+    next();
+  } else {
+    res.redirect(routes.home);
+  }
+}

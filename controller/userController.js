@@ -51,6 +51,61 @@ export const postLogin = passport.authenticate('local', {
 });
 
 export const logout = (req, res) => {
-    // TODOL Process Log out
+    req.logout();
     res.redirect(routes.home);
 };
+
+export const editProfile = (req, res) => {
+    res.render("editProfile", {
+        pageTitle: "Edit Profile"
+    });
+};
+
+export const changePassword = (req, res) => {
+    res.render("changePassword", {
+        pageTitle: "Change Password"
+    });
+};
+
+export const userDetail = (req, res) => {
+    res.render("userDetail", {
+        pageTitle: "User Detail"
+    });
+};
+
+export const githubLogin = passport.authenticate("github");
+
+export const githubLoginCallback = async (_, __, profile, cb) => {
+    const {
+        _json: {
+            id,
+            avatar_url,
+            name,
+            email
+        }
+    } = profile;
+
+    try {
+        const user = await User.findOne({
+            email
+        });
+        if (user) {
+            user.githubId = id;
+            user.save();
+            return cb(null, user);
+        }
+        const newUser = await User.create({
+            name,
+            email,
+            avatarURL,
+            githubId: id
+        });
+        return cb(null, newUser);
+    } catch (error) {
+        return cb(error);
+    }
+};
+
+export const postGithubLogin = (req, res) => {
+    res.redirect(routes.home);
+}
