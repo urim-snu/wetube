@@ -12,12 +12,8 @@ const increseNumber = () => {
 const addComment = async comment => {
     const li = document.createElement("li");
     const spanText = document.createElement("span");
-    const spanDelete = document.createElement("span");
-    spanDelete.classList.add("deleteComment");
-    spanDelete.innerHTML = `<i class="fas fa-trash"></i>`;
     spanText.innerHTML = comment;
     li.appendChild(spanText);
-    li.appendChild(spanDelete);
     commentList.prepend(li);
     increseNumber();
 }
@@ -45,10 +41,43 @@ const handleSubmit = event => {
     sendComment(comment);
     commentInput.value = "";
 }
+// TODO
+const deleteComment = (commentId) => {
+    const commentArray = commentList.querySelectorAll("li");
+    console.log(commentArray);
+    for (let i = 0; i < commentArray.length; i++) {
+        const tempID = commentArray[i].lastElementChild.value;
+        if (tempID === commentId) {
+            commentList.removeChild(commentArray[i]);
+        }
+    }
+}
+
+const handleDeleteComment = async (event) => {
+    const {
+        target: {
+            value: commentId
+        }
+    } = event;
+    const videoId = window.location.href.split("/videos/")[1];
+    const response = await axios({
+        url: `/api/${videoId}/delete-comment/`,
+        method: "POST",
+        data: {
+            commentId
+        }
+    });
+    if (response.status === 200) {
+        deleteComment(commentId);
+    }
+
+}
 
 function init() {
-    console.log(deleteCommentBtn);
     addCommentForm.addEventListener("submit", handleSubmit);
+    for (let i = 0; i < deleteCommentBtn.length; i++) {
+        deleteCommentBtn[i].addEventListener("click", handleDeleteComment);
+    }
 }
 
 if (addCommentForm) {
