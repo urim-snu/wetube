@@ -9,6 +9,10 @@ const increseNumber = () => {
     commentNumber.innerHTML = parseInt(commentNumber.innerHTML, 10) + 1;
 }
 
+const decreaseNumber = () => {
+    commentNumber.innerHTML = parseInt(commentNumber.innerHTML, 10) - 1;
+}
+
 const addComment = async comment => {
     const li = document.createElement("li");
     const spanText = document.createElement("span");
@@ -51,6 +55,7 @@ const deleteComment = (commentId) => {
             commentList.removeChild(commentArray[i]);
         }
     }
+    decreaseNumber();
 }
 
 const handleDeleteComment = async (event) => {

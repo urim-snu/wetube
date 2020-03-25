@@ -23,6 +23,11 @@ const DELETE_VIDEO = "/:id/delete";
 const GITHUB = "/auth/github";
 const GITHUB_CALLBACK = "/auth/github/callback";
 
+// Kakao
+
+const KAKAO = "/auth/kakao";
+const KAKAO_CALLBACK = "/auth/kakao/callback";
+
 // Facebook
 
 const FB = "/auth/facebook";
@@ -73,6 +78,8 @@ const routes = {
   github: GITHUB,
   githubCallback: GITHUB_CALLBACK,
   me: ME,
+  kakao: KAKAO,
+  kakaoCallback: KAKAO_CALLBACK,
   facebook: FB,
   facebookCallback: FB_CALLBACK,
   api: API,

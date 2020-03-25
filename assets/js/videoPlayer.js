@@ -90,7 +90,7 @@ function getCurrentTime() {
     currentTime.innerHTML = formatDate(Math.floor(videoPlayer.currentTime));
 }
 
-function setTotalTime() {
+async function setTotalTime() {
     const totalTimeString = formatDate(videoPlayer.duration);
     totalTime.innerHTML = totalTimeString;
     setInterval(getCurrentTime, 1000);
