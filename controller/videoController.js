@@ -65,10 +65,13 @@ export const postUpload = async (req, res) => {
   const newVideo = await Video.create({
     fileUrl: path,
     title,
-    description
+    description,
+    creator: req.user.id
   });
-  console.log(newVideo);
-  // TODO upload and save video
+
+  req.user.videos.push(newVideo.id);
+  req.user.save();
+
   res.redirect(routes.videoDetail(newVideo.id));
   // TODO, 라우팅이 이상하게 되었다 ㅠㅜ 얼른 수정해야 함
   // res.render("upload", {pageTitle: "Upload"});
@@ -81,7 +84,7 @@ export const videoDetail = async (req, res) => {
     }
   } = req;
   try {
-    const video = await Video.findById(id);
+    const video = await Video.findById(id).populate("creator");
     res.render("videoDetail", {
       pageTitle: video.title,
       video
@@ -99,10 +102,14 @@ export const getEditVideo = async (req, res) => {
   } = req;
   try {
     const video = await Video.findById(id);
-    res.render("editvideo", {
-      pageTitle: `Edit ${video.title}`,
-      video
-    });
+    if (String(video.creator) !== req.user.id) {
+      throw Error();
+    } else {
+      res.render("editvideo", {
+        pageTitle: `Edit ${video.title}`,
+        video
+      });
+    }
   } catch (error) {
     res.redirect(routes.home);
   }
@@ -118,9 +125,6 @@ export const postEditVideo = async (req, res) => {
       description
     }
   } = req;
-  console.log(req.body);
-  console.log(title, description);
-  console.log(id);
   try {
     await Video.findOneAndUpdate({
       _id: id
@@ -141,9 +145,14 @@ export const deleteVideo = async (req, res) => {
     }
   } = req;
   try {
-    await Video.findOneAndRemove({
-      _id: id
-    });
+    const video = await Video.findById(id);
+    if (String(video.creator) !== req.user.id) {
+      throw Error();
+    } else {
+      await Video.findOneAndRemove({
+        _id: id
+      });
+    }
   } catch (error) {
     console.log(error);
   }
