@@ -1,6 +1,9 @@
 import express from "express";
 import routes from "../routes";
-import { home, search } from "../controller/videoController";
+import {
+  home,
+  search
+} from "../controller/videoController";
 import {
   getJoin,
   postJoin,
@@ -14,8 +17,11 @@ import {
   postFacebookLogin,
   kakaoLogin,
   postKakaoLogin
-} from "../controller/usercontroller";
-import { onlyPublic, onlyPrivate } from "../middlewares";
+} from "../controller/userController";
+import {
+  onlyPublic,
+  onlyPrivate
+} from "../middlewares";
 import passport from "passport";
 
 const globalRouter = express.Router();
