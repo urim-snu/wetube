@@ -4,10 +4,8 @@ include mixins/videoBlock
 block content
         .user-profile
                 .user-profile__header
-                        if user.avatarURL.includes("upload")
-                                img.u-avatar(src=`/${user.avatarURL}`)
-                        else if user.avatarURL
-                                img.u-avatar(src=`${user.avatarURL}`)
+                        if user.avatarURL
+                                img.u-avatar(src=user.avatarURL)
                         else
                                 h4 (No image)
                         br

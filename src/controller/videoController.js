@@ -106,7 +106,7 @@ export const getEditVideo = async (req, res) => {
     if (String(video.creator) !== req.user.id) {
       throw Error();
     } else {
-      res.render("editvideo", {
+      res.render("editVideo", {
         pageTitle: `Edit ${video.title}`,
         video
       });
