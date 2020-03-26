@@ -8,8 +8,12 @@ Cloning Youtube with Vanilla and NodeJS
 - [x] Search
 - [x] User Detail
 - [x] Edit Profile
-- [] Me
-- [] Change Password
+- [x] Me
+- [x] Change Password
 - [x] Upload
 - [x] Video Detail, Comment
-- [] Edit Video
+- [x] Edit Video
+- [x] Delete Video
+
+At Service
+https://murmuring-brushlands-89431.herokuapp.com
