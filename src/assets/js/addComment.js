@@ -25,7 +25,6 @@ const addComment = async comment => {
 
 const sendComment = async comment => {
     const videoId = window.location.href.split("/videos/")[1];
-    console.log(videoId);
     const response = await axios({
         url: `/api/${videoId}/comment`,
         method: "POST",
@@ -48,7 +47,6 @@ const handleSubmit = event => {
 // TODO
 const deleteComment = (commentId) => {
     const commentArray = commentList.querySelectorAll("li");
-    console.log(commentArray);
     for (let i = 0; i < commentArray.length; i++) {
         const tempID = commentArray[i].lastElementChild.value;
         if (tempID === commentId) {

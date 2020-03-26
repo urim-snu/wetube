@@ -21,7 +21,6 @@ export const home = async (req, res) => {
 };
 
 export const search = async (req, res) => {
-  console.log(req.query);
   const {
     query: {
       term: searchingBy
@@ -53,18 +52,19 @@ export const getUpload = (req, res) => {
 };
 
 export const postUpload = async (req, res) => {
+  console.log(req.file);
   const {
     body: {
       title,
       description
     },
     file: {
-      path
+      location
     }
   } = req;
 
   const newVideo = await Video.create({
-    fileUrl: path,
+    fileUrl: location,
     title,
     description,
     creator: req.user.id
@@ -86,7 +86,6 @@ export const videoDetail = async (req, res) => {
   } = req;
   try {
     const video = await Video.findById(id).populate("creator").populate("comments");
-    console.log(video.comments);
     res.render("videoDetail", {
       pageTitle: video.title,
       video

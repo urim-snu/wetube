@@ -1,15 +1,32 @@
 import multer from "multer";
+import multers3 from "multer-s3";
+import aws from "aws-sdk";
 import routes from "./routes";
 
+const s3 = new aws.S3({
+  secretAccessKey: process.env.AWS_PRIVATE_KEY,
+  accessKeyId: process.env.AWS_KEY,
+  region: "ap-northeast-2"
+})
+
 const multerVideo = multer({
-  dest: "uploads/videos/"
+  storage: multers3({
+    s3,
+    acl: "public-read",
+    bucket: "wetube/video"
+  })
 });
-//서버의 폴더명
-// /uploads/videos/ 이런 식으로 쓰면 컴퓨터에 root에 디렉토리를 만들게 된다.
 
 const multerAvatar = multer({
-  dest: "uploads/avatars/"
+  storage: multers3({
+    s3,
+    acl: "public-read",
+    bucket: "wetube/avatar"
+  })
 });
+
+export const uploadVideo = multerVideo.single("videoFile");
+export const uploadAvatar = multerAvatar.single("avatar");
 
 export const localsMiddleware = (req, res, next) => {
   res.locals.siteName = "Wetube";
@@ -18,8 +35,6 @@ export const localsMiddleware = (req, res, next) => {
   next();
 };
 
-export const uploadVideo = multerVideo.single("videoFile");
-export const uploadAvatar = multerAvatar.single("avatar");
 
 //single은 하나의 파일만 들어올 수 있다는 의미
 //인자는 들어올 file의 이름

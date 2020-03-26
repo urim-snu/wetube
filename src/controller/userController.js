@@ -11,7 +11,6 @@ export const getJoin = (req, res) => {
 };
 
 export const postJoin = async (req, res, next) => {
-    console.log(req.body);
 
     const {
         body: {
@@ -78,7 +77,7 @@ export const postEditProfile = async (req, res) => {
         await User.findByIdAndUpdate(req.user.id, {
             name,
             email,
-            avatarURL: file ? file.path : req.user.avatarURL
+            avatarURL: file ? file.location : req.user.avatarURL
         });
         res.redirect(routes.me);
     } catch (error) {
@@ -193,7 +192,6 @@ export const facebookLoginCallback = (accessToken, refreshToken, profile, cb) =>
 }
 
 export const postFacebookLogin = (req, res) => {
-    console.log("post");
     res.redirect(routes.home);
 }
 
@@ -202,7 +200,6 @@ export const postFacebookLogin = (req, res) => {
 export const kakaoLogin = passport.authenticate("kakao");
 
 export const KakaoLoginCallback = async (_, __, profile, cb) => {
-    console.log(profile);
     const {
         _json: {
             id,

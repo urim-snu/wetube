@@ -21,6 +21,10 @@ block content
                                 |Uploaded by
                                 | 
                                 a(href=`/${routes.userDetail(video.creator.id)}`)=video.creator.name
+                        .video__createdAt
+                                |Created at
+                                |  
+                                span=video.createdAt
                 .video__comments
                         if video.comments.length === 1
                                 span.video__comment-number 

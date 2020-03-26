@@ -6,7 +6,6 @@ let streamObject;
 let videoRecorder;
 
 function handleVideoData(event) {
-    console.log(event);
     const {
         data: videoFile
     } = event;
